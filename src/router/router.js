@@ -3,7 +3,7 @@ import Applayout from "../../App";
 import Body from "../components/Body/Body";
 import About from "../components/About/About";
 import Cart from "../components/Cart/Cart";
-import Contact from "../components/Contact";
+import Contact from "../components/Contact/Contact";
 import Menu from "../components/Menu/Menu";
 export const router = createBrowserRouter([
   {
