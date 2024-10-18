@@ -1,0 +1,31 @@
+.restaurant-link {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease-in-out;
+}
+
+.restaurant-link:hover {
+  transform: scale(1.03);
+}
+.body-content {
+  display: flex;
+  flex-wrap: wrap; /* Allows the cards to wrap into multiple rows */
+  justify-content: center; /* Center the cards horizontally */
+  padding: 20px; /* Add padding around the content */
+  gap: 20px; /* Space between cards */
+}
+
+.card {
+  flex: 0 1 200px; /* Adjust the width of the card */
+  max-width: 250px; /* Set a maximum width for the cards */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}

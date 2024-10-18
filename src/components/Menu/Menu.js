@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_IMG_URL } from "../constant/constant";
-
+import { MENU_IMG_URL } from "../../constant/constant";
+import "./Menu.css";
 const Menu = () => {
   const [menu, setMenu] = useState([]);
   const { resId } = useParams();
