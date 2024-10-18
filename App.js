@@ -1,14 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect } from "react";
+import Header from "./src/components/Header";
+import Footer from "./src/components/Footer";
+import { Outlet } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const parent = React.createElement(
-  "div",
-  { id: "parent" },
-  React.createElement("div", { id: "child" }, [
-    React.createElement("h1", { id: "heding1" }, "Hello From Heading 1"),
-    React.createElement("h1", { id: "heding2" }, "Hello From Heading 2"),
-  ])
-);
+const Applayout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(parent);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/home"); // Replace '/home' with your desired home route
+    }
+  }, [location, navigate]);
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
+export default Applayout;
