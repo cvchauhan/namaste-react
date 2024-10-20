@@ -1,10 +1,13 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Applayout from "../../App";
-import Body from "../components/Body/Body";
-import About from "../components/About/About";
-import Cart from "../components/Cart/Cart";
-import Contact from "../components/Contact/Contact";
-import Menu from "../components/Menu/Menu";
+
+const Body = lazy(() => import("../components/Body/Body"));
+const Menu = lazy(() => import("../components/Menu/Menu"));
+const About = lazy(() => import("../components/About/About"));
+const Contact = lazy(() => import("../components/Contact/Contact"));
+const Cart = lazy(() => import("../components/Cart/Cart"));
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -12,23 +15,43 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <Body />,
+        element: (
+          <Suspense>
+            <Body />
+          </Suspense>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact-us",
-        element: <Contact />,
+        element: (
+          <Suspense>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <Suspense>
+            <Cart />
+          </Suspense>
+        ),
       },
       {
         path: "/restaurant/:resId",
-        element: <Menu />,
+        element: (
+          <Suspense>
+            <Menu />
+          </Suspense>
+        ),
       },
     ],
   },

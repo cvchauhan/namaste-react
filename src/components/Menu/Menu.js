@@ -1,29 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_IMG_URL } from "../../constant/constant";
+import { MENU_API_URL, MENU_IMG_URL } from "../../constant/constant";
 import "./Menu.css";
+import useMenuData from "../../hooks/useMenuData";
+
 const Menu = () => {
-  const [menu, setMenu] = useState([]);
+  const [visibleSections, setVisibleSections] = useState({}); // Track visible sections
   const { resId } = useParams();
+  const { menu, loading } = useMenuData(
+    `${MENU_API_URL}&restaurantId=${resId}`,
+    setVisibleSections
+  );
+  const handleAddToCart = (item) => {
+    console.log("Added to cart:", item); // Replace this with your add-to-cart logic
+  };
 
-  useEffect(() => {
-    if (resId) {
-      getMenudata();
-    }
-  }, [resId]);
-
-  const getMenudata = async () => {
-    try {
-      const response = await fetch(
-        `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.022505&lng=72.5713621&restaurantId=${resId}`
-      );
-      const json = await response.json();
-      const cards =
-        json?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
-      setMenu(cards);
-    } catch (error) {
-      console.error("Failed to fetch menu data:", error);
-    }
+  const toggleSection = (title) => {
+    setVisibleSections((prev) => ({
+      ...prev,
+      [title]: !prev[title], // Toggle visibility
+    }));
   };
 
   const renderMenuItem = (item) => (
@@ -33,37 +29,69 @@ const Menu = () => {
         <p className="menu-item-price">Rs. {item.card.info.price / 100}</p>
       </div>
       {item.card.info.imageId && (
-        <img
-          className="menu-img"
-          src={MENU_IMG_URL + item.card.info.imageId}
-          alt={item.card.info.name}
-        />
+        <div className="menu-img-container">
+          <img
+            className="menu-img"
+            src={MENU_IMG_URL + item.card.info.imageId}
+            alt={item.card.info.name}
+          />
+          <button className="add-to-cart" onClick={() => handleAddToCart(item)}>
+            Add
+          </button>
+        </div>
       )}
     </li>
   );
 
+  const renderSkeletonLoader = () => (
+    <ul>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <li key={index} className="menu-item skeleton">
+          <div className="menu-item-details">
+            <h2 className="skeleton-title"></h2>
+            <p className="skeleton-price"></p>
+          </div>
+          <div className="skeleton-img"></div>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <div className="menu-container">
-      {menu.map((data, index) => {
-        const { card } = data;
-        const title = card?.card?.title;
-        const itemCards = card?.card?.itemCards || [];
-        const itemCategories = card?.card?.categories || [];
+      {loading
+        ? renderSkeletonLoader()
+        : menu.map((data, index) => {
+            const { card } = data;
+            const title = card?.card?.title;
+            const itemCards = card?.card?.itemCards || [];
+            const itemCategories = card?.card?.categories || [];
 
-        return (
-          title && (
-            <div key={`${title}-${index}`}>
-              <h1>{title}</h1>
-              <ul>
-                {itemCards.map(renderMenuItem)}
-                {itemCategories.flatMap((cat) =>
-                  cat.itemCards?.map(renderMenuItem)
-                )}
-              </ul>
-            </div>
-          )
-        );
-      })}
+            return (
+              title && (
+                <div key={`${title}-${index}`}>
+                  <h1
+                    onClick={() => toggleSection(title)}
+                    className="menu-title"
+                  >
+                    {title}{" "}
+                    <span className="toggle-icon">
+                      {visibleSections[title] ? "⬆️" : "⬇️"}
+                    </span>
+                  </h1>
+
+                  {visibleSections[title] && (
+                    <ul>
+                      {itemCards.map(renderMenuItem)}
+                      {itemCategories.flatMap((cat) =>
+                        cat.itemCards?.map(renderMenuItem)
+                      )}
+                    </ul>
+                  )}
+                </div>
+              )
+            );
+          })}
     </div>
   );
 };

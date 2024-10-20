@@ -1,6 +1,6 @@
 import React from "react";
 import "./About.css";
-
+import image from "../../constant/image";
 function About() {
   return (
     <div className="about-container">
@@ -16,10 +16,7 @@ function About() {
         service and a warm, welcoming atmosphere for all of our guests.
       </p>
       <div className="about-image">
-        <img
-          src="https://source.unsplash.com/800x400/?restaurant"
-          alt="Restaurant"
-        />
+        <img src={image.logo} alt="Restaurant" />
       </div>
     </div>
   );

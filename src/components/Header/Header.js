@@ -1,18 +1,18 @@
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import image from "../../constant/image";
+// import useShowOnline from "../../hooks/useShowOnline";
 
 const Header = () => {
+  // const status = useShowOnline();
   return (
     <header className="header">
       <div className="logo">
-        <img
-          src="https://spa-company.com/wp-content/uploads/2020/03/dummy-logo-08.png"
-          alt="Company Logo"
-          className="logo-img"
-        />
+        <img src={image.logo} alt="Company Logo" className="logo-img" />
       </div>
       <nav className="nav-bar">
         <ul className="menu">
+          {/* <li className="link">{status ? "🟢" : "🔴"}</li> */}
           {["Home", "About", "Contact Us", "Cart"].map((item, index) => (
             <li key={index}>
               <NavLink

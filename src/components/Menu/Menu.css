@@ -6,40 +6,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #ffffff;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
-}
-
-.menu-item:hover {
-  transform: translateY(-2px);
-}
-
-.menu-item h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: center;
-  text-transform: capitalize;
-}
-
-.menu-img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-left: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
 .menu-item-details {
   flex: 1;
   padding: 0 15px;
@@ -58,8 +24,160 @@
   margin: 5px 0;
 }
 
+/* .menu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  position: relative;
+} */
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.menu-img-container {
+  position: relative;
+}
+
+.menu-img {
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+  border-radius: 5px;
+}
 .menu-item-price {
   font-size: 16px;
   font-weight: bold;
   color: #ff5722;
+}
+
+.add-to-cart {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  background-color: #28a745; /* Green background */
+  color: #fff; /* White text */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-to-cart:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.skeleton {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.skeleton-price {
+  width: 30%;
+  height: 16px;
+}
+
+.skeleton-img {
+  width: 80px;
+  height: 80px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+/* Optional: Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-title,
+.skeleton-price,
+.skeleton-img {
+  animation: shimmer 1.5s infinite linear;
+  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+  background-size: 200% 100%;
+}
+.menu-title {
+  font-size: 24px; /* Larger font size */
+  font-weight: 600; /* Semi-bold font */
+  color: #343a40; /* Darker color for better readability */
+  cursor: pointer;
+  margin: 20px 0; /* Margin for spacing */
+  padding: 10px; /* Padding around the title */
+  background-color: #e9ecef; /* Light background for titles */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.menu-title:hover {
+  background-color: #dee2e6; /* Darker background on hover */
+  color: #495057; /* Darker text on hover */
+}
+
+.toggle-icon {
+  margin-left: 10px; /* Space between title and icon */
+  font-weight: 400; /* Regular weight for the toggle icon */
+  color: #007bff; /* Primary color for the toggle icon */
+  transition: transform 0.3s; /* Smooth transition for the toggle icon */
+}
+
+.menu-title:hover .toggle-icon {
+  transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+.menu-item {
+  list-style: none; /* Remove default list style */
+  margin: 10px 0; /* Spacing between items */
+  padding: 10px; /* Padding for item */
+  border: 1px solid #ced4da; /* Border around items */
+  border-radius: 5px; /* Rounded corners for items */
+  background-color: #fff; /* White background for items */
+  transition: box-shadow 0.3s; /* Smooth transition for shadow */
+}
+
+.menu-item:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
+}
+
+.menu-img-container {
+  position: relative; /* Positioning for the button */
+}
+
+.add-to-cart {
+  position: absolute; /* Absolute positioning to place button on image */
+  bottom: 10px; /* Position from the bottom */
+  right: 10px; /* Position from the right */
+  background-color: #007bff; /* Primary color */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 8px 12px; /* Padding for button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Smooth transition for color */
+}
+
+.add-to-cart:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
