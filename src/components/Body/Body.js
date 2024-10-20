@@ -23,7 +23,8 @@ const Body = () => {
               </div>
             </div>
           ))
-        : restaurantData.map((restaurant) => (
+        : restaurantData &&
+          restaurantData.map((restaurant) => (
             <Link
               to={`/restaurant/${restaurant.info.id}`}
               key={restaurant.info.id}

@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import "./Cart.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { removetoCart } from "./cartSlice";
+import { Link } from "react-router-dom";
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Pizza", price: 500, quantity: 1 },
-    { id: 2, name: "Burger", price: 200, quantity: 2 },
-    { id: 3, name: "Pasta", price: 300, quantity: 1 },
-  ]);
-
+  const cartItems = useSelector((state) => state.cart.cartData);
+  const dispatch = useDispatch();
   const handleRemove = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    dispatch(removetoCart(id));
   };
 
   const calculateTotal = () => {
@@ -29,6 +27,7 @@ const Cart = () => {
               <span>{item.name}</span>
               <span>Qty: {item.quantity}</span>
               <span>Price: Rs. {item.price}</span>
+              <span>Total: Rs. {item.price * item.quantity}</span>
               <button
                 onClick={() => handleRemove(item.id)}
                 className="remove-button"
@@ -44,6 +43,7 @@ const Cart = () => {
       <div className="cart-total">
         <h2>Total: Rs. {calculateTotal()}</h2>
       </div>
+      <Link to="/checkout">Go to Checkout</Link>
     </div>
   );
 };

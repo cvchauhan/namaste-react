@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 import image from "../../constant/image";
+import { useSelector } from "react-redux";
+
 // import useShowOnline from "../../hooks/useShowOnline";
 
 const Header = () => {
   // const status = useShowOnline();
+  const cartItems = useSelector((state) => state.cart.cartData);
   return (
     <header className="header">
       <div className="logo">
@@ -21,7 +24,7 @@ const Header = () => {
                 }
                 to={`/${item.toLowerCase().replace(" ", "-")}`}
               >
-                {item}
+                {item == "Cart" ? item + " (" + cartItems.length + ")" : item}
               </NavLink>
             </li>
           ))}

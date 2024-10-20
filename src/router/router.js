@@ -7,7 +7,7 @@ const Menu = lazy(() => import("../components/Menu/Menu"));
 const About = lazy(() => import("../components/About/About"));
 const Contact = lazy(() => import("../components/Contact/Contact"));
 const Cart = lazy(() => import("../components/Cart/Cart"));
-
+const Checkout = lazy(() => import("../components/Checkout/Checkout"));
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +42,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense>
             <Cart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <Suspense>
+            <Checkout />
           </Suspense>
         ),
       },

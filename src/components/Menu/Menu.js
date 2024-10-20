@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { MENU_API_URL, MENU_IMG_URL } from "../../constant/constant";
 import "./Menu.css";
 import useMenuData from "../../hooks/useMenuData";
+import { useDispatch } from "react-redux";
+import { addtoCart } from "../Cart/cartSlice";
 
 const Menu = () => {
   const [visibleSections, setVisibleSections] = useState({}); // Track visible sections
@@ -11,8 +13,13 @@ const Menu = () => {
     `${MENU_API_URL}&restaurantId=${resId}`,
     setVisibleSections
   );
+  const dispatch = useDispatch();
   const handleAddToCart = (item) => {
-    console.log("Added to cart:", item); // Replace this with your add-to-cart logic
+    console.log(item);
+    item.quantity = 1;
+    const { id, name, defaultPrice, price, quantity } = item;
+    let finalPrice = price ? price / 100 : defaultPrice / 100;
+    dispatch(addtoCart({ id, name, price: finalPrice, quantity })); // Replace this with your add-to-cart logic
   };
 
   const toggleSection = (title) => {
@@ -26,7 +33,12 @@ const Menu = () => {
     <li key={item.card.info.id} className="menu-item">
       <div className="menu-item-details">
         <h2>{item.card.info.name}</h2>
-        <p className="menu-item-price">Rs. {item.card.info.price / 100}</p>
+        <p className="menu-item-price">
+          Rs.{" "}
+          {item.card.info.price
+            ? item.card.info.price / 100
+            : item.card.info.defaultPrice / 100}
+        </p>
       </div>
       {item.card.info.imageId && (
         <div className="menu-img-container">
@@ -35,7 +47,10 @@ const Menu = () => {
             src={MENU_IMG_URL + item.card.info.imageId}
             alt={item.card.info.name}
           />
-          <button className="add-to-cart" onClick={() => handleAddToCart(item)}>
+          <button
+            className="add-to-cart"
+            onClick={() => handleAddToCart(item.card.info)}
+          >
             Add
           </button>
         </div>
